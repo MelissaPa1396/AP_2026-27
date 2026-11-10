@@ -59,8 +59,43 @@ class Garage:
         self.cars.append(car)
         return f"Do garáže {self.name} bylo přidáno auto: {car.brand} {car.model}"
     
+    def showCars(self):
+        if len(self.cars) == 0:
+            print(f"Garáž {self.name} je prázdná!")
+        else:
+            print(f"Auta v garáži {self.name}: ")
+            for car in self.cars:
+                print("-->", car)
+
+    def oldestCar(self):
+        if len(self.cars) == 0:
+            return None
+        else:
+            the_oldest = min(self.cars, key = lambda car: car.year)
+            return the_oldest    
+    
+    def avgFuel(self):
+        if len(self.cars) == 0:
+            return 0
+        else:
+            return sum(car.fuel for car in self.cars) / len(self.cars)
+
+
 garage = Garage("Humplolec")
 
 print(garage.addCar(car1))
 print(garage.addCar(car2))
 print(garage.addCar(car3))
+print("="*40)
+print(garage.showCars())
+
+oldest = garage.oldestCar()
+if oldest:
+    print(f"Nejstarší auto v garáži je {oldest.brand} { oldest.model} ({oldest.year})")
+
+print(f"{garage.avgFuel(): .1f} l")
+
+print(garage.cars[2].move())
+
+for brambora in garage.cars:
+    print(brambora.STK())
